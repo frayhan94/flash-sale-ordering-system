@@ -9,7 +9,7 @@ services:
       POSTGRES_PASSWORD: flashsale123
       POSTGRES_DB: flashsale
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./backend/src/db/init.sql:/docker-entrypoint-initdb.d/init.sql
@@ -23,7 +23,7 @@ services:
     image: redis:7-alpine
     container_name: flash-sale-redis
     ports:
-      - "6379:6379"
+      - "6380:6379"
     volumes:
       - redis_data:/data
     healthcheck:

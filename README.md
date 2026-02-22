@@ -112,6 +112,18 @@ Expected: 100
 
 The React frontend provides a clean, responsive interface for users to participate in flash sales with real-time stock updates and purchase status.
 
+## 🗃️ Database View
+
+![Database Orders](screenshoot/database.png)
+
+Database showing 100 successful orders with zero overselling, demonstrating perfect data integrity and stock management.
+
+## 📦 Redis Stock Management
+
+![Redis Stock](screenshoot/redis.png)
+
+Redis showing real-time stock management with atomic operations, ensuring zero overselling under high concurrency (stock = 0 after 100 successful purchases).
+
 ## Project Structure
 
 ```
@@ -141,6 +153,8 @@ flash-sale-system/
 │   └── flash-sale-ordering-system.png
 ├── screenshoot/
 │   ├── ui.png
+│   ├── database.png
+│   ├── redis.png
 │   └── stress_test.png
 ├── docker-compose.yml
 └── README.md
