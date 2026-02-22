@@ -54,6 +54,9 @@ docker-compose up -d
 # View logs
 docker-compose logs -f
 
+# Rebuild backend if any code changes not reflected
+docker-compose up -d --build backend
+
 # Access:
 # - Frontend: http://localhost:5173
 # - Backend API: http://localhost:3000
@@ -76,7 +79,15 @@ curl -X POST http://localhost:3000/sale/reset \
 # Check sales status:
 curl http://localhost:3000/sale/status
 
-# Full load test (1000 users, 100 items)
+# Init stock if there is case stok under redis is gone if server crash
+curl -X POST http://localhost:3000/sale/init-stock 
+
+# Recover user purchased if there is case data under redis is gone if server crash
+curl -X POST http://localhost:3000/sale/recovery
+
+
+
+# Full load test
 k6 run stress-test/load-test.js
 
 # Custom stock
