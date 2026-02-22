@@ -165,7 +165,7 @@ export async function saleRoutes(fastify) {
    * Initialize Redis stock from DB (useful after restart)
    */
   fastify.post('/sale/init-stock', async (request, reply) => {
-    const saleId = request.body.saleId 
+    const saleId = (request.body && request.body.saleId) 
       ? parseInt(request.body.saleId, 10) 
       : config.sale.defaultSaleId;
     
