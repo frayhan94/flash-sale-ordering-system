@@ -1,8 +1,11 @@
 # High-Concurrency Flash Sale Platform
 A production-ready flash sale platform that handles high-concurrency scenarios using Redis for atomic stock management and PostgreSQL for persistent order storage. Demonstrates zero-overselling architecture capable of processing 1000+ concurrent purchase requests.
 
-# Where is the diagram ?
-Please see the diagram under diagram folder
+## 🏗️ System Architecture
+
+![System Architecture](diagram/flash-sale-ordering-system.png)
+
+The complete flash sale system architecture showing Redis, PostgreSQL, Node.js backend, and React frontend components.
 
 # Brief explanation of design choice
 
@@ -87,6 +90,14 @@ For `stock = 100`:
 - **SOLD_OUT**: Remaining requests
 - **No overselling**: Guaranteed
 
+![Stress Test Results](screenshoot/stress_test.png)
+
+**Load Test Performance Metrics**:
+- ✅ **166,910 total requests** processed
+- ✅ **22.98ms average response time** (excellent performance)
+- ✅ **100 successful purchases** (no overselling - perfect!)
+- ✅ **Zero stock inconsistency** - exactly 100 items sold from 100 stock
+
 Example output:
 ```
 === RESULTS ===
@@ -94,6 +105,12 @@ Successful purchases: 100
 Expected: 100
 ✅ PASS: Exactly 100 items sold, no overselling!
 ```
+
+## 🎨 User Interface
+
+![Flash Sale UI](screenshoot/ui.png)
+
+The React frontend provides a clean, responsive interface for users to participate in flash sales with real-time stock updates and purchase status.
 
 ## Project Structure
 
@@ -120,6 +137,11 @@ flash-sale-system/
 ├── stress-test/
 │   ├── load-test.js         # Full k6 load test
 │   └── simple-test.js       # Simple concurrency test
+├── diagram/
+│   └── flash-sale-ordering-system.png
+├── screenshoot/
+│   ├── ui.png
+│   └── stress_test.png
 ├── docker-compose.yml
 └── README.md
 ```
