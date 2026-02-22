@@ -104,6 +104,40 @@ export async function initializeRedisStock(saleId) {
 }
 
 /**
+ * Restore user purchase flags from database (stock only)
+ */
+export async function completeRedisRecovery(saleId) {
+  // Only restore user purchase flags, not stock
+  const userPurchases = await getSuccessfulUserPurchases(saleId);
+  const restoredUsers = [];
+  
+  for (const purchase of userPurchases) {
+    await redisService.markUserPurchased(saleId, purchase.user_id);
+    restoredUsers.push(purchase.user_id);
+  }
+  
+  console.log(`User purchase recovery for sale ${saleId}:`);
+  console.log(`- User purchases restored: ${restoredUsers.length}`);
+  
+  return {
+    restoredUsers: restoredUsers.length,
+    users: restoredUsers
+  };
+}
+
+/**
+ * Get all successful user purchases for a sale
+ */
+export async function getSuccessfulUserPurchases(saleId) {
+  const result = await query(
+    'SELECT user_id FROM orders WHERE sale_id = $1 AND status = $2',
+    [saleId, 'SUCCESS']
+  );
+  
+  return result.rows;
+}
+
+/**
  * Get full sale status response
  */
 export async function getSaleStatusResponse(saleId = config.sale.defaultSaleId) {

@@ -177,4 +177,24 @@ export async function saleRoutes(fastify) {
       initializedStock: stock,
     });
   });
+
+  /**
+   * POST /sale/recovery
+   * Complete Redis recovery from DB (stock + user purchases)
+   */
+  fastify.post('/sale/recovery', async (request, reply) => {
+    const saleId = (request.body && request.body.saleId) 
+      ? parseInt(request.body.saleId, 10) 
+      : config.sale.defaultSaleId;
+    
+    const recovery = await saleService.completeRedisRecovery(saleId);
+    
+    return reply.send({
+      success: true,
+      saleId,
+      message: 'User purchase recovery finished',
+      restoredUsers: recovery.restoredUsers,
+      users: recovery.users,
+    });
+  });
 }
