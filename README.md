@@ -176,13 +176,13 @@ flash-sale-system/
 
 ## Environment Variables
 
-### Backend Environment Variables
+### Backend Environment Variables (Internal Container)
 | Variable | Default | Description |
 |----------|---------|-------------|
 | NODE_ENV | production | Environment mode |
 | PORT | 3000 | Backend port |
-| DATABASE_URL | postgres://flashsale:flashsale123@postgres:5432/flashsale | PostgreSQL connection |
-| REDIS_URL | redis://redis:6379 | Redis connection |
+| DATABASE_URL | postgres://flashsale:flashsale123@postgres:5432/flashsale | PostgreSQL connection (internal) |
+| REDIS_URL | redis://redis:6379 | Redis connection (internal) |
 
 ### Frontend Environment Variables
 | Variable | Default | Description |
@@ -195,6 +195,14 @@ flash-sale-system/
 | POSTGRES_USER | flashsale | PostgreSQL username |
 | POSTGRES_PASSWORD | flashsale123 | PostgreSQL password |
 | POSTGRES_DB | flashsale | PostgreSQL database name |
+
+### External Access Ports (Host Machine)
+| Service | External Port | Internal Port | Access URL |
+|---------|---------------|---------------|------------|
+| PostgreSQL | 5433 | 5432 | localhost:5433 |
+| Redis | 6380 | 6379 | localhost:6380 |
+| Backend | 3000 | 3000 | localhost:3000 |
+| Frontend | 5173 | 80 | localhost:5173 |
 
 ## Scaling Considerations
 For database connection we might need PgBouncer for streamlining the connection as we will use AWS Fargate on the production as i state in the diagram (flash-sale-ordering-system.png)
