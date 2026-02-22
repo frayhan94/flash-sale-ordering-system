@@ -163,7 +163,6 @@ flash-sale-system/
 │   └── Dockerfile
 ├── stress-test/
 │   ├── load-test.js         # Full k6 load test
-│   └── simple-test.js       # Simple concurrency test
 ├── diagram/
 │   └── flash-sale-ordering-system.png
 ├── screenshoot/
@@ -177,12 +176,25 @@ flash-sale-system/
 
 ## Environment Variables
 
+### Backend Environment Variables
 | Variable | Default | Description |
 |----------|---------|-------------|
+| NODE_ENV | production | Environment mode |
 | PORT | 3000 | Backend port |
-| DATABASE_URL | postgres://... | PostgreSQL connection |
-| REDIS_URL | redis://localhost:6379 | Redis connection |
+| DATABASE_URL | postgres://flashsale:flashsale123@postgres:5432/flashsale | PostgreSQL connection |
+| REDIS_URL | redis://redis:6379 | Redis connection |
+
+### Frontend Environment Variables
+| Variable | Default | Description |
+|----------|---------|-------------|
 | VITE_API_URL | http://localhost:3000 | API URL for frontend |
+
+### Database Environment Variables
+| Variable | Default | Description |
+|----------|---------|-------------|
+| POSTGRES_USER | flashsale | PostgreSQL username |
+| POSTGRES_PASSWORD | flashsale123 | PostgreSQL password |
+| POSTGRES_DB | flashsale | PostgreSQL database name |
 
 ## Scaling Considerations
 For database connection we might need PgBouncer for streamlining the connection as we will use AWS Fargate on the production as i state in the diagram (flash-sale-ordering-system.png)
