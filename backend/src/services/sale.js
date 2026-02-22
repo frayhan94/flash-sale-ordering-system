@@ -232,5 +232,8 @@ export async function resetSale(saleId, newStock) {
   await redisService.resetSaleKeys(saleId);
   await redisService.initializeStock(saleId, newStock);
   
+  // Delete all user purchase keys for this sale
+  await redisService.deleteUserPurchaseKeys(saleId);
+  
   return true;
 }

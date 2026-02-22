@@ -157,3 +157,17 @@ export async function resetSaleKeys(saleId) {
     await client.del(...keys);
   }
 }
+
+/**
+ * Delete all user purchase keys for a specific sale
+ */
+export async function deleteUserPurchaseKeys(saleId) {
+  const client = getRedisClient();
+  const pattern = `${config.sale.userPurchaseKeyPrefix}${saleId}:*`;
+  const keys = await client.keys(pattern);
+  if (keys.length > 0) {
+    await client.del(...keys);
+    console.log(`Deleted ${keys.length} user purchase keys for sale ${saleId}`);
+  }
+  return keys.length;
+}
