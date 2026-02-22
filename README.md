@@ -104,7 +104,7 @@ For `stock = 100`:
 ![Stress Test Results](screenshoot/stress_test.png)
 
 **Load Test Performance Metrics**:
-- ✅ **166,910 total requests** processed
+- ✅ **166,910 (failed due to stock is sold out) + 102 (success) total requests** processed
 - ✅ **22.98ms average response time** (excellent performance)
 - ✅ **100 successful purchases** (no overselling - perfect!)
 - ✅ **Zero stock inconsistency** - exactly 100 items sold from 100 stock
