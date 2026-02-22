@@ -114,6 +114,8 @@ The React frontend provides a clean, responsive interface for users to participa
 
 ## 🗃️ Database View
 
+After run the stress test the order data is inserted into the database
+
 ![Database Orders](screenshoot/database.png)
 
 Database showing 100 successful orders with zero overselling, demonstrating perfect data integrity and stock management.
@@ -121,6 +123,8 @@ Database showing 100 successful orders with zero overselling, demonstrating perf
 ## 📦 Redis Stock Management
 
 ![Redis Stock](screenshoot/redis.png)
+
+After run the stress test the sales stock becomes 0 and the user id mark as purchased
 
 Redis showing real-time stock management with atomic operations, ensuring zero overselling under high concurrency (stock = 0 after 100 successful purchases).
 
