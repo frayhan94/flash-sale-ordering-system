@@ -204,6 +204,39 @@ flash-sale-system/
 | Backend | 3000 | 3000 | localhost:3000 |
 | Frontend | 5173 | 80 | localhost:5173 |
 
+## ⚙️ Configuration Notes
+
+### 🔄 User Purchase Expiry Management
+
+**⚠️ Important**: Set `userPurchaseExpiry` to match your flash sale duration to prevent data inconsistency and optimize Redis storage.
+
+#### **Current Configuration**:
+```javascript
+// backend/src/config/index.js
+userPurchaseExpiry: 86400
+```
+
+#### **Recommended Practice**:
+```javascript
+// Calculate expiry based on flash sale duration
+const flashSaleDuration = (endTime - startTime) / 1000; // in seconds
+userPurchaseExpiry: flashSaleDuration + 3600
+```
+
+#### **Benefits**:
+- ✅ **Automatic Cleanup**: User purchase keys expire when sale ends
+- ✅ **Storage Optimization**: Reduces Redis memory usage
+- ✅ **Fresh Start**: Clean Redis state for next sale
+
+#### **Example Implementation**:
+```javascript
+// For a 2-hour flash sale
+userPurchaseExpiry: 7200, // 2 hours = 7200 seconds
+
+// For a 24-hour flash sale  
+userPurchaseExpiry: 86400
+```
+
 ## Scaling Considerations
 For database connection we might need PgBouncer for streamlining the connection as we will use AWS Fargate on the production as i state in the diagram (flash-sale-ordering-system.png)
 
