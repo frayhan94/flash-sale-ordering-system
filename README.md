@@ -26,7 +26,8 @@ queues for updating the stock to database and this is high I/O operation
 The tradeoff using above infrastructure is we might face inconsistency data stock from redis to database. let say in redis shows 90 stock while in database
 shows 93 . we can solve it by  reconciliation process. sync stock from database into redis. Why this can happen because for example a user already did the purchase
 but in the API endpoint we by pass that check (the redis key for user purchase is gone). 
-in redis it will decrement but in database it will reject as we add unique for sales id and user id (the order is not saved)
+in redis it will decrement but in database it will reject as we add unique for sales id and user id (the order is not saved) 
+(even at this case the rollback does not working to increment back it let say not working because the redis machine suddenly dead)
 thats why we need as well the reconciliation for user purchased item
 
 # Flow to make purchase
